@@ -1,13 +1,10 @@
-# Build with AI: Safe and Scalable SQL AI Agents
-This is the repository for the LinkedIn Learning course `Build with AI: Safe and Scalable SQL AI Agents`. The full course is available from [LinkedIn Learning][lil-course-url].
+# Safe SQL AI Agent for Local Data Analysis
 
-![lil-thumbnail-url]
-
-## Course Description
-
-<p>Make SQL agents product-ready by learning how to leverage Python, LangChain, and LLM frameworks. First, learn about the overall architecture of SQL AI agents by focusing on building a robust framework that uses deterministic information. Find out how to create effective prompt templates, add context, and inject memory into agents to handle complex and dynamic queries with ease. Dive into safety assurance, query validations, and safety constraints. Review monitoring systems and error-handling process. Then, set up logs to track the agent performance with MLflow. Last but not least, see how to implement multiple AI agents to process the data. </p><p>This course is designed for data scientists and engineers but is also beneficial to data analysts seeking to increase knowledge and build operational skills in AI systems. By the end of the course, you will have learned how to prototype SQL AI agents and deploy them responsibly into production environments. </p>
-
-_See the readme file in the main branch for updated instructions and information._
+A local-first SQL AI agent workflow that turns natural-language questions into
+SQL, enriches them with domain context, optionally reviews generated queries
+with a second agent, validates SQL for safety, executes against DuckDB or
+PostgreSQL, returns results in Streamlit, and logs activity for monitoring and
+evaluation.
 
 ## Local Setup
 
