@@ -1,0 +1,23 @@
+.env
+.venv/
+venv/
+.agents/
+.codex/
+__pycache__/
+.ipynb_checkpoints/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Local app and notebook outputs
+logs/
+*.log
+test_results_*.csv
+test_summary_*.csv
+*_heatmap_*.html
+
+# Docker assets are not used in this local WSL setup
+docker/
+docker-compose*.yml
+docker-compose*.yaml
