@@ -1,15 +1,15 @@
 # Safe SQL AI Agent for Local Data Analysis
 
-A local-first SQL AI agent workflow that turns natural-language questions into
-SQL, enriches them with domain context, optionally reviews generated queries
-with a second agent, validates SQL for safety, executes against DuckDB or
-PostgreSQL, returns results in Streamlit, and logs activity for monitoring and
-evaluation.
+A local-first SQL AI agent that turns natural-language questions into safe SQL
+queries for local data analysis. It can query a bundled DuckDB dataset or a
+local PostgreSQL database, enrich prompts with table context, optionally review
+generated SQL with a second LLM pass, validate SQL before execution, and show
+results in Streamlit.
 
 ## Local Setup
 
-This local copy is configured to run from WSL with the `sql-agent-ai` conda
-environment and local PostgreSQL on `localhost:5432`.
+This project is configured for a local WSL/conda workflow. Install it in editable
+mode from the repository root:
 
 ```bash
 cd /home/farjam/sql-agent-ai
@@ -34,16 +34,8 @@ Check PostgreSQL before running notebooks that use the Postgres backend:
 pg_isready -h localhost -p 5432
 ```
 
-Use `host="localhost"` in notebooks and scripts. The original course Docker
-setup used `host="postgres"` because `postgres` was a Docker Compose service
-name.
-
-### Docker Status
-
-This working copy is now configured as a local WSL/conda project. Docker files
-are not required for the current workflow and have been removed from this copy.
-If you later want to restore the course's original container workflow, recover
-the Docker assets from the upstream repository.
+Use `host="localhost"` in notebooks and scripts when connecting to PostgreSQL
+from this local setup.
 
 ## Run The Apps
 
@@ -62,6 +54,55 @@ streamlit run app/logs_app.py
 For the simplest local run, choose DuckDB in the app sidebar. PostgreSQL requires
 the local `my_db` database to exist.
 
+## Workflow
+
+The main workflow starts in `app/agent_app.py` and runs through
+`sql_ai_agent/SqlAgent.py`:
+
+1. Choose a backend in Streamlit.
+   - DuckDB loads the sample `data/air_traffic_gold.csv` file into an in-memory
+     `air_traffic` table.
+   - PostgreSQL connects with the credentials from `.env` and expects an
+     `air_traffic` table in the configured database.
+
+2. Configure the agent from the sidebar.
+   - Select the LLM provider and model from `llm_config.yaml`.
+   - Enable optional memory for follow-up questions.
+   - Enable safety options such as read-only mode and maximum result limits.
+   - Enable structured logging or database logging when you want to inspect
+     prompts, generated SQL, validation results, and execution outcomes.
+   - Enable the SQL Review Agent when you want a second LLM pass before
+     execution.
+
+3. Ask a natural-language question.
+   - The agent inspects the selected table schema.
+   - It can add distinct character values and table-specific context from the
+     `skills/` directory.
+   - It sends the question, schema, database type, table name, optional memory,
+     and extra context to the LLM.
+
+4. Generate and optionally review SQL.
+   - The primary LLM returns SQL, including SQL inside markdown code blocks.
+   - If SQL review is enabled, a second prompt checks whether the SQL answers the
+     question and follows the available context. The reviewer either approves the
+     query or returns a corrected query.
+
+5. Validate before execution.
+   - `SQLValidator` parses the query with `sqlglot`.
+   - In read-only mode, it blocks unsafe statement types such as `UPDATE`,
+     `DELETE`, `DROP`, and multi-statement SQL.
+   - When result limits are enabled, it adds or tightens a `LIMIT` clause before
+     the query reaches the database.
+
+6. Execute and display results.
+   - The validated query is executed through the Ibis/DuckDB or Ibis/PostgreSQL
+     connection.
+   - Results are returned as a pandas DataFrame and displayed in Streamlit along
+     with the generated SQL and any errors.
+   - If a validated query fails at execution time, the debug agent can retry with
+     the error message. If fallback is enabled, the fallback model can make a
+     final attempt.
+
 ## SQL Review Agent
 
 The core `SqlAgent` supports an optional SQL Review Agent. When enabled, the
@@ -76,22 +117,3 @@ agent = SqlAgent(..., sql_review=True)
 
 In Streamlit, enable **SQL Review Agent** in the sidebar. This improves semantic
 quality but adds one extra LLM call per question.
-
-## Instructions
-This repository has branches for each of the videos in the course. You can use the branch pop up menu in github to switch to a specific branch and take a look at the course at that stage, or you can add `/tree/BRANCH_NAME` to the URL to go to the branch you want to access.
-
-## Branches
-The branches are structured to correspond to the videos in the course. The naming convention is `CHAPTER#_MOVIE#`. As an example, the branch named `02_03` corresponds to the second chapter and the third video in that chapter. 
-Some branches will have a beginning and an end state. These are marked with the letters `b` for "beginning" and `e` for "end". The `b` branch contains the code as it is at the beginning of the movie. The `e` branch contains the code as it is at the end of the movie. The `main` branch holds the final state of the code when in the course.
-
-When switching from one exercise files branch to the next after making changes to the files, you may get a message like this:
-
-    error: Your local changes to the following files would be overwritten by checkout:        [files]
-    Please commit your changes or stash them before you switch branches.
-    Aborting
-
-To resolve this issue:
-	
-    Add changes to git using this command: git add .
-	Commit changes using this command: git commit -m "some message"
-
