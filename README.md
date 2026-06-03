@@ -95,19 +95,3 @@ To resolve this issue:
     Add changes to git using this command: git add .
 	Commit changes using this command: git commit -m "some message"
 
-
-## Instructor
-
-Rami Krispin
-
-Senior Manager, Data Science and Engineering
-                            
-
-Check out my other courses on [LinkedIn Learning](https://www.linkedin.com/learning/instructors/).
-
-
-[0]: # (Replace these placeholder URLs with actual course URLs)
-
-[lil-course-url]: https://www.linkedin.com/learning/build-with-ai-sql-ai-agents-in-production
-[lil-thumbnail-url]: https://media.licdn.com/dms/image/v2/D560DAQEGUp_kqxS8qw/learning-public-crop_675_1200/B56ZxOVEW9IQAY-/0/1770840672587?e=2147483647&v=beta&t=LMvCyFpIJRhmDCJ4HGZ8RSAthm2SHdx0sWoCAFTB6-w
-# SQL-AI-Agent-for-Data-Analysis
