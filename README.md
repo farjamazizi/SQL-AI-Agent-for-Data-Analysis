@@ -6,6 +6,10 @@ local PostgreSQL database, enrich prompts with table context, optionally review
 generated SQL with a second LLM pass, validate SQL before execution, and show
 results in Streamlit.
 
+## Demo
+
+Watch the project demo: [demo/demo-of-project.mp4](demo/demo-of-project.mp4)
+
 ## Local Setup
 
 This project is configured for a local WSL/conda workflow. Install it in editable
