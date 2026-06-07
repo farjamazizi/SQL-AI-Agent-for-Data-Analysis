@@ -11,7 +11,7 @@ extension points in the configuration.
 
 ## Demo
 
-Watch the project demo: [demo/demo-of-project.mp4](demo/demo-of-project.mp4)
+Watch the project demo: [demo/Demo_of_sql_project_agent.mp4](demo/Demo_of_sql_project_agent.mp4)
 
 ## Local Setup
 
