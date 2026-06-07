@@ -6,6 +6,9 @@ local PostgreSQL database, enrich prompts with table context, optionally review
 generated SQL with a second LLM pass, validate SQL before execution, and show
 results in Streamlit.
 
+The current working demo uses OpenAI models. Other providers are kept as future
+extension points in the configuration.
+
 ## Demo
 
 Watch the project demo: [demo/demo-of-project.mp4](demo/demo-of-project.mp4)

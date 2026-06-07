@@ -448,28 +448,37 @@ with st.sidebar:
     db_type = st.selectbox(
         "Select Database",
         ["PostgreSQL", "DuckDB"],
-        help="Choose between PostgreSQL (requires running container) or DuckDB (in-memory)"
+        help="Choose between local PostgreSQL or DuckDB (in-memory)"
     )
 
     # LLM Provider selection
     st.subheader("LLM Provider")
-    provider_map = {
+    all_provider_labels = {
         "OpenAI": "openai",
         "Anthropic": "anthropic",
         "Google": "google",
         "Docker Model Runner": "docker_model_runner",
     }
 
-    provider_display = st.selectbox(
-        "Select Provider",
-        list(provider_map.keys()),
-        index=0,
-    )
-    provider = provider_map[provider_display]
-
-    # Model selection
     try:
         config = load_config()
+        enabled_providers = set(config.list_providers(enabled_only=True))
+        provider_map = {
+            label: key
+            for label, key in all_provider_labels.items()
+            if key in enabled_providers
+        }
+        if not provider_map:
+            st.error("No enabled LLM providers found in llm_config.yaml.")
+            st.stop()
+
+        provider_display = st.selectbox(
+            "Select Provider",
+            list(provider_map.keys()),
+            index=0,
+        )
+        provider = provider_map[provider_display]
+
         available_models = config.get_model_names(provider)
         default_model = config.get_default_model(provider)
 

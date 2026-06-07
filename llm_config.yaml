@@ -51,7 +51,7 @@ providers:
 
   # Anthropic Configuration
   anthropic:
-    enabled: true
+    enabled: false  # Future work: requires an Anthropic-specific LangChain chat model
     base_url: "https://api.anthropic.com/v1"
     api_key_env: "CLAUDE_API_KEY"  # Environment variable name
     temperature: 0
@@ -74,7 +74,7 @@ providers:
 
   # Google Gemini Configuration
   google:
-    enabled: true
+    enabled: false  # Future work: requires a Gemini-specific LangChain chat model
     base_url: "https://generativelanguage.googleapis.com/v1beta"
     api_key_env: "GEMINI_API_KEY"  # Environment variable name
     temperature: 0

@@ -1,14 +1,24 @@
 [project]
 name = "sql-ai-agent"
 version = "0.0.4"
-description = "Build with AI: Safe and Scalable SQL AI Agents"
+description = "A local-first SQL AI agent for safe natural-language data analysis with Streamlit, OpenAI, DuckDB, and PostgreSQL."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [
-    { name = "Rami Krispin" }
+    { name = "Farjam Azizi" }
 ]
-keywords = ["sql", "ai", "agent", "llm", "database", "openai", "anthropic", "gemini"]
+keywords = [
+    "sql",
+    "ai-agent",
+    "llm",
+    "data-analysis",
+    "streamlit",
+    "openai",
+    "duckdb",
+    "postgresql",
+    "langchain",
+]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -63,9 +73,9 @@ all = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/RamiKrispin/build-with-ai-safe-and-scalable-sql-ai-agents-2757076"
-Repository = "https://github.com/RamiKrispin/build-with-ai-safe-and-scalable-sql-ai-agents-2757076"
-Issues = "https://github.com/RamiKrispin/build-with-ai-safe-and-scalable-sql-ai-agents-2757076/issues"
+Homepage = "https://github.com/farjamazizi/SQL-AI-Agent-for-Data-Analysis"
+Repository = "https://github.com/farjamazizi/SQL-AI-Agent-for-Data-Analysis"
+Issues = "https://github.com/farjamazizi/SQL-AI-Agent-for-Data-Analysis/issues"
 
 [build-system]
 requires = ["hatchling"]
