@@ -16,8 +16,3 @@ logs/
 test_results_*.csv
 test_summary_*.csv
 *_heatmap_*.html
-
-# Docker assets are not used in this local WSL setup
-docker/
-docker-compose*.yml
-docker-compose*.yaml
